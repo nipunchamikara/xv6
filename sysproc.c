@@ -93,5 +93,5 @@ sys_uptime(void)
 // return size of address space
 int
 sys_getmysize(void) {
-  return myproc()->sz;
+  return (int)myproc()->sz;
 }
