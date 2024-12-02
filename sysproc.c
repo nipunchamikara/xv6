@@ -95,3 +95,28 @@ int
 sys_getmysize(void) {
   return (int)myproc()->sz;
 }
+
+// return kernel start address
+int
+sys_getkernelstartaddr(void) {
+  return KERNBASE;
+}
+
+// return kernel end address
+int
+sys_getkernelendaddr(void) {
+  return KERNBASE + PHYSTOP;
+}
+
+// return address of variable defined in kernel
+int
+sys_getkernelvariaddr(void) {
+  int x = 5;
+  return (int)&x;
+}
+
+// return address of sys_fork func
+int
+sys_getsystemcalladdr(void) {
+  return (int)sys_fork;
+}
