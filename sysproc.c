@@ -89,3 +89,9 @@ sys_uptime(void)
   release(&tickslock);
   return xticks;
 }
+
+// return size of address space
+int
+sys_getmysize(void) {
+  return myproc()->sz;
+}
