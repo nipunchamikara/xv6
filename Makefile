@@ -166,6 +166,7 @@ mkfs: mkfs.c fs.h
 .PRECIOUS: %.o
 
 UPROGS=\
+    _myprog\
 	_cat\
 	_echo\
 	_forktest\

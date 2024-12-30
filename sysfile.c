@@ -442,3 +442,21 @@ sys_pipe(void)
   fd[1] = fd1;
   return 0;
 }
+
+int
+sys_getinodesize(void)
+{
+  char *path;
+  struct inode *ip;
+
+  begin_op();
+  if (argstr(0, &path) < 0 || (ip = namei(path)) == 0) {
+    end_op();
+    return -1;
+  }
+  ilock(ip);
+  const int size = (int)ip->size;
+  iunlock(ip);
+  end_op();
+  return size;
+}
