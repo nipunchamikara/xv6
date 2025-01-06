@@ -89,3 +89,39 @@ sys_uptime(void)
   release(&tickslock);
   return xticks;
 }
+
+int
+sys_getps(void)
+{
+  int size;
+  char *s;
+
+  if (argint(0, &size) < 0) {
+    return -1;
+  }
+
+  if (argptr(1, &s, size) < 0) {
+    return -1;
+  }
+
+  const struct proc *ptable = getparr();
+  const struct proc *p = ptable;
+
+  int procCount = 0;
+  while (p < &ptable[NPROC]){
+    if (p->state == UNUSED) {
+      p++; continue;
+    }
+    *(int *)s = p->pid;
+    s += 4;
+    *(uint *)s = p->sz;
+    s += 4;
+    *(int *)s = p->killed;
+    s += 4;
+    safestrcpy(s, p->name, 16);
+    s += 16;
+    procCount++;
+    p++;
+  }
+  return procCount;
+}

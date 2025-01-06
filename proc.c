@@ -12,6 +12,12 @@ struct {
   struct proc proc[NPROC];
 } ptable;
 
+struct proc*
+getparr(void)
+{
+  return ptable.proc;
+}
+
 static struct proc *initproc;
 
 int nextpid = 1;
